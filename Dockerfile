@@ -2,6 +2,7 @@ FROM node:18 as frontend
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm install
+RUN npm install vue3-google-map
 COPY frontend .
 RUN npm run build
 

@@ -2,7 +2,7 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "gunicorn --bind 0.0.0.0:$PORT backend.main:app"
+startCommand = "gunicorn --bind 0.0.0.0:8080 backend.main:app"
 restartPolicyType = "on_failure"
 
 [deploy.env]

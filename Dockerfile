@@ -11,5 +11,5 @@ COPY --from=frontend /app/frontend/dist /app/frontend/dist
 COPY backend /app/backend
 COPY requirements.txt .
 RUN pip install -r requirements.txt gunicorn
-RUN ls -la /app/frontend/dist
+RUN ls -la /app/frontend/dist && cat /app/frontend/dist/index.html
 CMD ["gunicorn", "--bind", "0.0.0.0:8080", "backend.main:app"]

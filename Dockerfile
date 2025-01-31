@@ -14,4 +14,5 @@ COPY backend /app/backend
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-CMD ["python", "backend/main.py"]
+EXPOSE 5000
+CMD ["python", "/app/backend/main.py"]

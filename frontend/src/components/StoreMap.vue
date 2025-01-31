@@ -2,7 +2,7 @@
 <template>
     <div class="map-container">
       <GoogleMap
-        :api-key="import.meta.env.VITE_GOOGLE_MAPS_API_KEY"
+        :api-key="apiKey"
         class="map"
         :center="center"
         :zoom="12"
@@ -27,7 +27,8 @@
     components: { GoogleMap, Marker },
     
     setup() {
-      const center = ref({ lat: 40.7128, lng: -74.0060 }) // Default to NYC
+      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+      const center = ref({ lat: 40.7128, lng: -74.0060 })
       const markers = ref([])
       
       const addMarker = (event) => {
@@ -39,16 +40,14 @@
           id: Date.now(),
           position
         })
-        // Emit event for parent component
-        emit('store-added', position)
       }
       
       const selectStore = (marker) => {
-        // Emit event for parent component
-        emit('store-selected', marker)
+        console.log('Selected store:', marker)
       }
       
       return {
+        apiKey,
         center,
         markers,
         addMarker,

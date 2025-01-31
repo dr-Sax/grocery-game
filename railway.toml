@@ -1,0 +1,11 @@
+[build]
+builder = "nixpacks"
+buildCommand = "cd frontend && npm install && npm run build"
+
+[deploy]
+startCommand = "cd backend && python main.py"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 100
+
+[deploy.railway]
+name = "grocery-game"

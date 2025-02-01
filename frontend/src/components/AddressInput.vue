@@ -3,7 +3,13 @@
     <p>Message is: {{ message }}</p>
       <input v-model="message" placeholder="edit me" />
     -->
-      <button @click="emitData">Send Data</button>
+    
+    <!-- input address in HTML text box input, pressing submit does nothing yet-->
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" placeholder="Type your address...">
+      <button style= "color:white;background-color: #5A2E47" @click="emitData">Submit</button>
+
+
   </template>
 
 <script>
@@ -20,3 +26,6 @@ export default {
 }
 
 </script>
+
+
+

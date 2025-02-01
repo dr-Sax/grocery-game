@@ -20,7 +20,7 @@ export default {
     name: 'AddressInput',
     methods: {
         emitData() {
-        this.$emit('data-updated', 'Data from Child');
+        this.$emit('data-updated', document.getElementById("address").value);
         }
     }
 }

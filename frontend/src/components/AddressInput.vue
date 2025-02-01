@@ -11,11 +11,12 @@
 // const message = ref('')
 
 export default {
-       methods: {
-         emitData() {
-           this.$emit('data-updated', 'Data from Child');
-         }
-       }
-     }
+    name: 'AddressInput',
+    methods: {
+        emitData() {
+        this.$emit('data-updated', 'Data from Child');
+        }
+    }
+}
 
 </script>

@@ -12,8 +12,8 @@
   </template>
   
   <script>
+
   import AddressInput from './components/AddressInput.vue';
-import AddressInput from './components/AddressInput.vue';
   import StoreMap from './components/StoreMap.vue'
 
 

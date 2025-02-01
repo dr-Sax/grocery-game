@@ -1,7 +1,6 @@
 <!-- frontend/src/App.vue -->
 <template>
     <div id="app">
-      <h1>Grocery Game</h1>
       <StoreMap 
         @store-added="handleStoreAdded"
         @store-selected="handleStoreSelected"

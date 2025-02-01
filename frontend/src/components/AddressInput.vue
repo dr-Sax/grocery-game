@@ -9,6 +9,15 @@
       <input type="text" id="address" name="address" placeholder="Type your address...">
       <button style= "color:white;background-color: #5A2E47" @click="emitData">Submit</button>
 
+      <!-- longitude -->
+      <label for="longitude">Longitude:</label>
+      <input type="text" id="longitude" name="longitude" placeholder="Type your address...">
+      <button style= "color:white;background-color: #5A2E47" @click="emitData">Submit</button>
+
+      <!-- latitude -->
+      <label for="latitude">Latitude:</label>
+      <input type="text" id="latitude" name="latitude" placeholder="Type your address...">
+      <button style= "color:white;background-color: #5A2E47" @click="emitData">Submit</button>
 
   </template>
 
@@ -21,6 +30,8 @@ export default {
     methods: {
         emitData() {
         this.$emit('data-updated', document.getElementById("address").value);
+        this.$emit('long-updated', document.getElementById("longitude").value);
+        this.$emit('lat-updated', document.getElementById("latitude").value);
         }
     }
 }

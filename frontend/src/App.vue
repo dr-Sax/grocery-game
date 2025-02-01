@@ -1,7 +1,10 @@
 <!-- frontend/src/App.vue -->
 <template>
     <div id="app">
-      <AddressInput @data-updated="handleDataUpdate" />
+      <AddressInput @data-updated="handleDataUpdate" 
+        @lat-updated="handleDataUpdate"
+        @long-updated="handleDataUpdate"
+      />
       <StoreMap 
         @store-added="handleStoreAdded"
         @store-selected="handleStoreSelected"

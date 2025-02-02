@@ -48,8 +48,8 @@
       },
       handleDataUpdate(data) {
         const lines = data.split("\n");
-       this.newLatitude = lines[1];
-       this.newLongitude = lines[2];
+       this.newLatitude = data;
+       this.newLongitude = data;
        console.log(data);
        console.log(this.newLatitude);
        console.log(this.newLongitude);

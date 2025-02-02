@@ -25,6 +25,7 @@
   export default defineComponent({
     name: 'StoreMap',
     components: { GoogleMap, Marker },
+    props: ['megan_latitude', 'megan_longitude'],
 
     setup() {
       const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY

@@ -29,6 +29,16 @@
       StoreMap,
       AddressInput
     },
+    megan_latitude() {
+      return {
+        newLatitude: "41"
+      };
+    },
+    megan_longitude() {
+      return {
+        newLongitude: "81"
+      };
+    },
     methods: {
       handleStoreAdded(position) {
         console.log('New store added at:', position);
@@ -40,6 +50,8 @@
         const lines = data.split("\n");
        this.newLatitude = lines[1];
        this.newLongitude = lines[2];
+       console.log(this.newLatitude);
+       console.log(this.newLongitude);
       }
     }
   }

@@ -50,6 +50,7 @@
         const lines = data.split("\n");
        this.newLatitude = lines[1];
        this.newLongitude = lines[2];
+       console.log(data);
        console.log(this.newLatitude);
        console.log(this.newLongitude);
       }

@@ -25,10 +25,10 @@
   export default defineComponent({
     name: 'StoreMap',
     components: { GoogleMap, Marker },
-    
+
     setup() {
       const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-      const center = ref({ lat: 40.7128, lng: -74.0060 })
+      const center = ref({ lat: megan_latitude, lng: megan_longitude })
       const markers = ref([])
       
       const addMarker = (event) => {

@@ -8,6 +8,8 @@
       <StoreMap 
         @store-added="handleStoreAdded"
         @store-selected="handleStoreSelected"
+        :megan_latitude="newLatitude"
+        :megan_longitude="newLongitude"
       />
     </div>
 
@@ -35,7 +37,9 @@
         console.log('Store selected:', marker);
       },
       handleDataUpdate(data) {
-       console.log(data); // 'Data from Child'
+        const lines = data.split("\n");
+       this.newLatitude = lines[1];
+       this.newLongitude = lines[2];
       }
     }
   }

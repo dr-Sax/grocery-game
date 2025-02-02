@@ -31,12 +31,12 @@
     },
     megan_latitude() {
       return {
-        newLatitude: "41"
+        newLatitude: 41
       };
     },
     megan_longitude() {
       return {
-        newLongitude: "81"
+        newLongitude: 81
       };
     },
     methods: {

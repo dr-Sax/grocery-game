@@ -1,5 +1,6 @@
 <!-- frontend/src/components/StoreMap.vue -->
 <template>
+    <p>{{ megan_latitude }}</p>
     <div class="map-container">
       <GoogleMap
         :api-key="apiKey"

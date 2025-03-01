@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Grocery Game</title>
 
     <!-- google font links-->
@@ -12,7 +15,9 @@
     dark gray: 6E6E6E
     dark purple: 5A2E47
     light gray: E5E5E5
+    
     -->
+
 
     <style>
 
@@ -34,20 +39,15 @@
       }
       
     </style>
-  </head>
 
-
-  <body>
     
+  </head>
+  <body>
     <!-- main heading-->
     <h1 style="background-color: #93CBA5">Grocery Game</h1>
 
     <!-- Input address instruction-->
     <h2>1. Location</h2>
-    <div id="app">
-      <script type="module" src="/src/main.js"></script>
-    </div>
-    
 
     <!-- input address in HTML text box input, pressing submit does nothing yet-->
     <!-- <form>
@@ -55,6 +55,11 @@
       <input type="text" id="address" name="address" placeholder="Type your address...">
       <input type="submit" style= "color:white;background-color: #5A2E47" value="Submit">
     </form> -->
+
+
+    <!-- vue.js element?-->
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
 
     <!-- Input address instruction-->
     <h2>2. Shopping List</h2>
@@ -68,7 +73,6 @@
             Chocolate
         <br>
     </p>
-
 
   </body>
 </html>

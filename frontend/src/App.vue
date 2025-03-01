@@ -1,10 +1,7 @@
 <!-- frontend/src/App.vue -->
 <template>
     <div id="app">
-      <AddressInput @data-updated="handleDataUpdate" 
-        @lat-updated="handleDataUpdate"
-        @long-updated="handleDataUpdate"
-      />
+      <AddressInput @coordinates-updated="handleCoordinatesUpdate" />
       <StoreMap 
         @store-added="handleStoreAdded"
         @store-selected="handleStoreSelected"
@@ -15,7 +12,7 @@
 
 
   </template>
-  
+  -80
   <script>
 
   import AddressInput from './components/AddressInput.vue';
@@ -29,15 +26,11 @@
       StoreMap,
       AddressInput
     },
-    megan_latitude() {
-      return {
-        newLatitude: 41
-      };
-    },
-    megan_longitude() {
-      return {
-        newLongitude: 81
-      };
+    data(){
+      return{
+        newLatitude: 39.96,
+        newLongitude: -82.99
+      }
     },
     methods: {
       handleStoreAdded(position) {
@@ -46,13 +39,9 @@
       handleStoreSelected(marker) {
         console.log('Store selected:', marker);
       },
-      handleDataUpdate(data) {
-        const lines = data.split("\n");
-       this.newLatitude = data;
-       this.newLongitude = data;
-       console.log(data);
-       console.log(this.newLatitude);
-       console.log(this.newLongitude);
+      handleCoordinatesUpdate(data) {
+       this.newLatitude = Number(data.latitude);
+       this.newLongitude = Number(data.longitude);
       }
     }
   }

@@ -1,12 +1,12 @@
 <!-- frontend/src/components/StoreMap.vue -->
 <template>
-    <p>{{ megan_latitude }}</p>
+    
     <div class="map-container">
       <GoogleMap
         :api-key="apiKey"
         class="map"
         :center="center"
-        :zoom="12"
+        :zoom="10"
         @click="addMarker"
       >
         <Marker
@@ -20,7 +20,7 @@
   </template>
   
   <script>
-  import { defineComponent, ref } from 'vue'
+  import { defineComponent, ref, watch, computed } from 'vue'
   import { GoogleMap, Marker } from 'vue3-google-map'
   
   export default defineComponent({
@@ -28,10 +28,26 @@
     components: { GoogleMap, Marker },
     props: ['megan_latitude', 'megan_longitude'],
 
-    setup() {
+    setup(props) {
       const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-      const center = ref({ lat: megan_latitude, lng: megan_longitude })
+      const center = computed(
+        () => (
+          { 
+            lat: Number(props.megan_latitude), 
+            lng: Number(props.megan_longitude)
+          }
+        )
+      )
       const markers = ref([])
+      // Make center reactive to prop changes
+      watch(() => props.megan_latitude, (newLat) => {
+      center.value.lat = newLat
+      })
+      watch(() => props.megan_longitude, (newLng) => {
+      console.log(center.value);
+      center.value.lng = newLng;
+      console.log(center.value);
+      })
       
       const addMarker = (event) => {
         const position = {
@@ -56,7 +72,9 @@
         selectStore
       }
     }
-  })
+    
+    }
+  )
 
   
   </script>

@@ -1,6 +1,5 @@
 <!-- frontend/src/components/StoreMap.vue -->
 <template>
-    
     <div class="map-container">
       <GoogleMap
         :api-key="apiKey"
@@ -19,6 +18,8 @@
     </div>
   </template>
   
+
+
   <script>
   import { defineComponent, ref, watch, computed } from 'vue'
   import { GoogleMap, Marker } from 'vue3-google-map'

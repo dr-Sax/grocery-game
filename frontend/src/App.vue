@@ -1,23 +1,25 @@
 <!-- frontend/src/App.vue -->
 <template>
-    <div id="app">
-      <AddressInput @coordinates-updated="handleCoordinatesUpdate" />
-      <StoreMap 
-        @store-added="handleStoreAdded"
-        @store-selected="handleStoreSelected"
-        :megan_latitude="newLatitude"
-        :megan_longitude="newLongitude"
-      />
+    <div id="app">    <!-- root node, all other divs must be nested inside-->
+      <div id="addressInput">
+        <AddressInput @coordinates-updated="handleCoordinatesUpdate" />
+      </div>
+      <div id="viewMap">
+        <StoreMap 
+          @store-added="handleStoreAdded"
+          @store-selected="handleStoreSelected"
+          :megan_latitude="newLatitude"
+          :megan_longitude="newLongitude"
+        />
+      </div>
     </div>
-
-
   </template>
-  -80
-  <script>
 
+
+  <script>
+  //import children from component folder
   import AddressInput from './components/AddressInput.vue';
   import StoreMap from './components/StoreMap.vue'
-
 
   
   export default {

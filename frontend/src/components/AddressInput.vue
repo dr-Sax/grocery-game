@@ -12,19 +12,69 @@
       <input type="text" id="latitude" name="latitude" placeholder="Type your latitude...">
       <br>
       <button style= "color:white;background-color: #5A2E47" @click="emitData">Submit</button>
+      <p class="backend-address">{{ backendAddress }}</p>
   </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'AddressInput',
     emits: ['coordinates-updated'],
+
+    mounted(){
+      this.fetchAddress();
+    },
+    data(){
+      return{
+        backendAddress: ''
+      }
+    },
+
     methods: {
+      async fetchAddress(){
+        this.loading = true;
+        this.error = null;
+        try {
+          const response = await axios.get('api/address');
+          this.backendAddress = response.data.address;
+        }
+        catch (err){
+          this.error = 'failed to fetch backend address';
+          console.error(err)
+        }
+        finally{
+          this.loading = false;
+        }
+      },
+
+      async updateAddress(address){
+        this.loading = true;
+        this.error = null;
+        this.success = false;
+        this.address = address;
+
+        try{
+          const response = await axios.post('api/address', {address: this.address});
+          if (response.data.success){
+            this.backendAddress = response.data.address;
+          }
+        }
+        catch (err){
+
+        }
+      },
+
       emitData() {
+        // existing update map code
         this.$emit('coordinates-updated', {
           latitude: document.getElementById("latitude").value,
           longitude: document.getElementById("longitude").value,
           address: document.getElementById("address").value,
         });
+
+        // testing backend update address
+        this.updateAddress(document.getElementById("address").value)
       }
     }
 }

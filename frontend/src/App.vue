@@ -21,7 +21,6 @@
   import AddressInput from './components/AddressInput.vue';
   import StoreMap from './components/StoreMap.vue'
 
-  
   export default {
     name: 'App',
     components: {
@@ -31,7 +30,7 @@
     data(){
       return{
         newLatitude: 39.96,
-        newLongitude: -82.99
+        newLongitude: -82.99,
       }
     },
     methods: {

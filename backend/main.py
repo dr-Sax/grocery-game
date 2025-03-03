@@ -1,11 +1,18 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import googlemaps
+from datetime import datetime
 
 
 app = Flask(__name__, static_folder='/app/frontend/dist', static_url_path='')
 CORS(app)
 
-stored_address = '3250 clarendon rd. Cleveland Heights Ohio 44118'
+# stored variables
+stored_address = '3250 Clarendon rd. Cleveland Heights Ohio 44118'
+myKey = 'AIzaSyDnNPD1pEn4CeGHdqMtFTLaWgeVLqqCMzc'
+
+
+gmaps = googlemaps.Client(key=myKey)
 
 @app.route('/api/address', methods=['GET'])
 def get_address():
@@ -17,8 +24,13 @@ def update_address():
     data = request.json
     if 'address' in data:
         stored_address = data['address']
-        return jsonify({'success': True, 'address': stored_address})
+        dict_address = gmaps.geocode(address=stored_address)
+        lat_lng_dict = dict_address[0].get("geometry").get("location")
+        return jsonify({'success': True, 'address': lat_lng_dict})
     return jsonify({'success': False, 'error': 'No Address Provided'}), 400
+
+
+
 
 @app.route('/<path:path>')
 def static_file(path):

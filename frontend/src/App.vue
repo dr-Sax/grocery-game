@@ -2,7 +2,10 @@
 <template>
     <div id="app">    <!-- root node, all other divs must be nested inside-->
       <div id="addressInput">
-        <AddressInput @coordinates-updated="handleCoordinatesUpdate" />
+        <AddressInput 
+          @coordinates-updated="handleCoordinatesUpdate" 
+          @lat-lng="handleCoordinatesUpdate" 
+        />
       </div>
       <div id="viewMap">
         <StoreMap 

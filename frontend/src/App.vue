@@ -3,8 +3,8 @@
     <div id="app">    <!-- root node, all other divs must be nested inside-->
       <div id="addressInput">
         <AddressInput 
-          @coordinates-updated="handleCoordinatesUpdate" 
-          @lat-lng="handleCoordinatesUpdate" 
+          @lat_lng="handleCoordinatesUpdate" 
+          
         />
       </div>
       <div id="viewMap">
@@ -44,8 +44,9 @@
         console.log('Store selected:', marker);
       },
       handleCoordinatesUpdate(data) {
-       this.newLatitude = Number(data.latitude);
-       this.newLongitude = Number(data.longitude);
+        console.log("hello");
+        this.newLatitude = Number(data.latitude);
+        this.newLongitude = Number(data.longitude);
       }
     }
   }

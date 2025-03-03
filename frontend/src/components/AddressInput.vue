@@ -1,7 +1,7 @@
 <template>
     <!-- input address in HTML text box input-->
       <label for="address">Address:</label>
-      <input type="text" id="address" name="address" placeholder="Type your address..." @keyup.enter="emitData1">
+      <input type="text" id="address" name="address" placeholder="Type your address..." @keyup.enter="emitData">
       <br>
     <!-- longitude -->
       <label for="longitude">Longitude:</label>
@@ -11,7 +11,7 @@
       <label for="latitude">Latitude:</label>
       <input type="text" id="latitude" name="latitude" placeholder="Type your latitude...">
       <br>
-      <button style= "color:white;background-color: #5A2E47" @click="emitData1">Submit</button>
+      <button style= "color:white;background-color: #5A2E47" @click="emitData">Submit</button>
       <p class="backend-address">{{ backendAddress }}</p>
   </template>
 
@@ -58,6 +58,7 @@ export default {
           const response = await axios.post('api/address', {address: this.address});
           if (response.data.success){
             this.backendAddress = response.data.address;
+            console.log(this.backendAddress["lat"]);
             this.$emit('lat_lng', {
               latitude: this.backendAddress["lat"],
               longitude: this.backendAddress["lng"],
@@ -69,12 +70,12 @@ export default {
         }
       },
 
-      emitData1() {
+      emitData() {
         // existing update map code
         this.$emit('coordinates-updated', {
-          latitude: document.getElementById("latitude").value,
-          longitude: document.getElementById("longitude").value,
-          address: document.getElementById("address").value,
+          // latitude: document.getElementById("latitude").value,
+          // longitude: document.getElementById("longitude").value,
+          address: document.getElementById("address").value
         });
 
         // testing backend update address

@@ -26,7 +26,8 @@ def update_address():
         stored_address = data['address']
         dict_address = gmaps.geocode(address=stored_address)
         lat_lng_dict = dict_address[0].get("geometry").get("location")
-        return jsonify({'success': True, 'address': lat_lng_dict})
+        results = gmaps.places(query='Grocery', location=lat_lng_dict, radius = 5000)
+        return jsonify({'success': True, 'address': lat_lng_dict, 'stores': results})
     return jsonify({'success': False, 'error': 'No Address Provided'}), 400
 
 

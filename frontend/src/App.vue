@@ -4,15 +4,15 @@
       <div id="addressInput">
         <AddressInput 
           @lat_lng="handleCoordinatesUpdate" 
-          
+          @store_list="populateMap"
         />
       </div>
       <div id="viewMap">
         <StoreMap 
-          @store-added="handleStoreAdded"
           @store-selected="handleStoreSelected"
           :megan_latitude="newLatitude"
           :megan_longitude="newLongitude"
+          :list_of_stores="newStores"
         />
       </div>
     </div>
@@ -34,12 +34,10 @@
       return{
         newLatitude: 39.96,
         newLongitude: -82.99,
+        newStores: null,
       }
     },
     methods: {
-      handleStoreAdded(position) {
-        console.log('New store added at:', position);
-      },
       handleStoreSelected(marker) {
         console.log('Store selected:', marker);
       },
@@ -47,6 +45,10 @@
         console.log("hello");
         this.newLatitude = Number(data.latitude);
         this.newLongitude = Number(data.longitude);
+      },
+      populateMap(data) {
+        console.log("time to populate the map");
+        this.newStores = data.stores;
       }
     }
   }

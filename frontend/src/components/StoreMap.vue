@@ -6,7 +6,6 @@
         class="map"
         :center="center"
         :zoom="10"
-        @click="addMarker"
       >
         <Marker
           v-for="marker in markers"
@@ -27,7 +26,7 @@
   export default defineComponent({
     name: 'StoreMap',
     components: { GoogleMap, Marker },
-    props: ['megan_latitude', 'megan_longitude'],
+    props: ['megan_latitude', 'megan_longitude', 'list_of_stores'],
 
     setup(props) {
       const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
@@ -35,7 +34,7 @@
         () => (
           { 
             lat: Number(props.megan_latitude), 
-            lng: Number(props.megan_longitude)
+            lng: Number(props.megan_longitude),
           }
         )
       )
@@ -48,19 +47,25 @@
       console.log(center.value);
       center.value.lng = newLng;
       console.log(center.value);
+      console.log(props.list_of_stores.results[0].name)
+      console.log(props.list_of_stores.results[1].name)
+      console.log(props.list_of_stores.results[2].name)
+      console.log(props.list_of_stores.results[3].name)
+      console.log(props.list_of_stores.results[4].name)
       })
       
-      const addMarker = (event) => {
-        const position = {
-          lat: event.latLng.lat(),
-          lng: event.latLng.lng()
-        }
-        markers.value.push({
-          id: Date.now(),
-          position
-        })
-      }
+      // const addMarker = (event) => {
+      //   const position = {
+      //     lat: event.latLng.lat(),
+      //     lng: event.latLng.lng()
+      //   }
+      //   markers.value.push({
+      //     id: Date.now(),
+      //     position
+      //   })
+      // }
       
+      //this can be used for icon color changing and selection
       const selectStore = (marker) => {
         console.log('Selected store:', marker)
       }
@@ -69,7 +74,7 @@
         apiKey,
         center,
         markers,
-        addMarker,
+        // addMarker,
         selectStore
       }
     }

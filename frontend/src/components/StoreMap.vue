@@ -17,14 +17,13 @@
     </div>
   </template>
   
-
-
   <script>
   import { defineComponent, ref, watch, computed } from 'vue'
   import { GoogleMap, Marker } from 'vue3-google-map'
   
   export default defineComponent({
     name: 'StoreMap',
+    emits: ['list_of_names'],
     components: { GoogleMap, Marker },
     props: ['megan_latitude', 'megan_longitude', 'list_of_stores'],
 
@@ -39,32 +38,35 @@
         )
       )
       const markers = ref([])
+
       // Make center reactive to prop changes
       watch(() => props.megan_latitude, (newLat) => {
       center.value.lat = newLat
       })
+
       watch(() => props.megan_longitude, (newLng) => {
       console.log(center.value);
       center.value.lng = newLng;
-      console.log(center.value);
-      console.log(props.list_of_stores.results[0].name)
-      console.log(props.list_of_stores.results[1].name)
-      console.log(props.list_of_stores.results[2].name)
-      console.log(props.list_of_stores.results[3].name)
-      console.log(props.list_of_stores.results[4].name)
+      })
+
+      watch(() => props.list_of_stores, (newStores) => {
+        let store_list = props.list_of_stores.results;
+        let name_list = [];
+        for (let i = 0; i < store_list.length; i++){
+          let lat= store_list[i].geometry.location.lat;
+          let lng= store_list[i].geometry.location.lng;
+          markers.value.push(
+            {
+              "id": i,
+              "position": {"lat": lat, "lng": lng}
+            })
+          console.log(props.list_of_stores.results[i].name);
+          name_list.push(props.list_of_stores.results[i].name);
+        }
+        
       })
       
-      // const addMarker = (event) => {
-      //   const position = {
-      //     lat: event.latLng.lat(),
-      //     lng: event.latLng.lng()
-      //   }
-      //   markers.value.push({
-      //     id: Date.now(),
-      //     position
-      //   })
-      // }
-      
+
       //this can be used for icon color changing and selection
       const selectStore = (marker) => {
         console.log('Selected store:', marker)
@@ -74,13 +76,18 @@
         apiKey,
         center,
         markers,
-        // addMarker,
+        //addMarker,
         selectStore
       }
+
+      
     }
     
     }
+
   )
+
+
 
   
   </script>
@@ -95,6 +102,6 @@
   .map {
     width: 100%;
     height: 100%;
-    display: block;
+    display: flex;
   }
   </style>

@@ -71,7 +71,6 @@ export default {
         this.$emit('coordinates-updated', {
           address: document.getElementById("address").value
         });
-
         // testing backend update address
         this.updateAddress(document.getElementById("address").value)
       }

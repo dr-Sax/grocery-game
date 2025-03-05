@@ -7,14 +7,18 @@
           @store_list="populateMap"
         />
       </div>
-      <div id="viewMap">
-        <StoreMap 
-          @store-selected="handleStoreSelected"
-          :megan_latitude="newLatitude"
-          :megan_longitude="newLongitude"
-          :list_of_stores="newStores"
-        />
-      </div>
+      <div class="flex-container">
+        <div style="flex-grow: 1">{{ nameList }}</div>
+        <div id="viewMap" style="flex-grow: 3">
+            <StoreMap 
+              @store-selected="handleStoreSelected"
+              :megan_latitude="newLatitude"
+              :megan_longitude="newLongitude"
+              :list_of_stores="newStores"
+              @list_of_names="createNameList"
+            />
+          </div>
+        </div>
     </div>
   </template>
 
@@ -35,6 +39,7 @@
         newLatitude: 39.96,
         newLongitude: -82.99,
         newStores: null,
+        nameList: [],
       }
     },
     methods: {
@@ -42,16 +47,24 @@
         console.log('Store selected:', marker);
       },
       handleCoordinatesUpdate(data) {
-        console.log("hello");
         this.newLatitude = Number(data.latitude);
         this.newLongitude = Number(data.longitude);
       },
       populateMap(data) {
         console.log("time to populate the map");
         this.newStores = data.stores;
+      },
+      createNameList(data) {
+        console.log("hello")
+        this.nameList = data;
       }
     }
   }
   </script>
 
-  
+<style>
+.flex-container {
+  display: flex;
+  margin: 10px;
+}
+</style>

@@ -7,24 +7,27 @@
         :center="center"
         :zoom="10"
       >
-        <Marker
+        <CustomMarker
           v-for="marker in markers"
           :key="marker.id"
-          :options="{ position: marker.position }"
-          @click="selectStore(marker)"
-        />
+          :options="{ position: marker.position, anchorPoint: 'BOTTOM_CENTER' }"
+          @click="selectStore(marker)">
+          <div style="text-align: center">
+              <img src="../../assets/orange_mapmarker.png" width="50" height="50" style="margin-top: 8px" />
+          </div>
+        </CustomMarker>
       </GoogleMap>
     </div>
   </template>
   
   <script>
   import { defineComponent, ref, watch, computed } from 'vue'
-  import { GoogleMap, Marker } from 'vue3-google-map'
+  import { GoogleMap, CustomMarker } from 'vue3-google-map'
   
   export default defineComponent({
     name: 'StoreMap',
     emits: ['list_of_names'],
-    components: { GoogleMap, Marker },
+    components: { GoogleMap, CustomMarker },
     props: ['megan_latitude', 'megan_longitude', 'list_of_stores'],
 
     setup(props, {emit}) {
@@ -70,7 +73,7 @@
           name_list.push(str_fmt);
         // end of loop  
         }
-        
+
         emit('list_of_names', name_list);
       })
       

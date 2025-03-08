@@ -8,7 +8,22 @@
         />
       </div>
       <div class="flex-container">
-        <div style="flex-grow: 1">{{ nameList }}</div>
+
+        <!-- adding checklist items for stores: -->
+        <div id="checklist-items" style="flex-grow: 1">
+          <ul style="list-style-type: none">
+            <li v-for="(item, index) in nameList" :key="index">
+              <label>
+                <input type="checkbox" :value="item.id" v-model="selectedItems">
+                  <strong>{{ item.name }}</strong>
+                  <br>
+                  <em>{{ item.address }}</em>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+
         <div id="viewMap" style="flex-grow: 3">
             <StoreMap 
               @store-selected="handleStoreSelected"

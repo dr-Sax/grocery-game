@@ -27,7 +27,7 @@
     components: { GoogleMap, Marker },
     props: ['megan_latitude', 'megan_longitude', 'list_of_stores'],
 
-    setup(props) {
+    setup(props, {emit}) {
       const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
       const center = computed(
         () => (
@@ -52,6 +52,7 @@
       watch(() => props.list_of_stores, (newStores) => {
         let store_list = props.list_of_stores.results;
         let name_list = [];
+
         for (let i = 0; i < store_list.length; i++){
           let lat= store_list[i].geometry.location.lat;
           let lng= store_list[i].geometry.location.lng;
@@ -60,10 +61,17 @@
               "id": i,
               "position": {"lat": lat, "lng": lng}
             })
-          console.log(props.list_of_stores.results[i].name);
-          name_list.push(props.list_of_stores.results[i].name);
+          
+          // formatting for checklist items:
+          let adr = props.list_of_stores.results[i].formatted_address
+          let str_name = props.list_of_stores.results[i].name
+          let idx = i;
+          let str_fmt = {"id": idx, "name": str_name, "address": adr};
+          name_list.push(str_fmt);
+        // end of loop  
         }
         
+        emit('list_of_names', name_list);
       })
       
 

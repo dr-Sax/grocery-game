@@ -1,10 +1,10 @@
 <!-- frontend/src/App.vue -->
 <template>
-    <div id="app">    <!-- root node, all other divs must be nested inside-->
-      <div id="addressInput">
+    <div id = "app">    <!-- root node, all other divs must be nested inside-->
+      <div id = "addressInput">
         <AddressInput 
-          @lat_lng="handleCoordinatesUpdate" 
-          @store_list="populateMap"
+          @lat_lng_add = "handleCoordinatesUpdate" 
+          @store_list_add = "populateMap"
         />
       </div>
       <div class="flex-container">
@@ -27,13 +27,11 @@
 
 
         <div id="viewMap" style="flex-grow: 3">
-            <StoreMap 
-              @store-selected="handleStoreSelected"
-              :megan_latitude="newLatitude"
-              :megan_longitude="newLongitude"
-              :list_of_stores="newStores"
-              @list_of_names="createNameList"
-              :green_marker_stores="isChecked"
+            <StoreMap
+              :latitude_map = "latitude"
+              :longitude_map = "longitude"
+              :store_list_map = "store_list"
+              @create_checklist_map = "createChecklist"
             />
           </div>
         </div>
@@ -48,41 +46,46 @@
   import StoreMap from './components/StoreMap.vue'
 
   export default {
+
     name: 'App',
+
     components: {
       StoreMap,
       AddressInput
     },
+
     data(){
-      return{
-        newLatitude: 39.96,
-        newLongitude: -82.99,
-        newStores: null,
-        nameList: [],
-        isChecked: [],
+      return {
+        latitude: 39.96,
+        longitude: -82.99,
+        store_list: null,
+        nameList: []
       }
     },
+
     methods: {
-      handleStoreSelected(marker) {
-        console.log('Store selected:', marker);
-      },
+
       handleCoordinatesUpdate(data) {
-        this.newLatitude = Number(data.latitude);
-        this.newLongitude = Number(data.longitude);
+        this.latitude = Number(data.latitude);
+        this.longitude = Number(data.longitude);
       },
+
       populateMap(data) {
         console.log("time to populate the map");
-        this.newStores = data.stores;
+        this.store_list = data.stores;
       },
-      createNameList(data) {
+
+      createChecklist(data) {
         console.log("hello")
         this.nameList = data;
       },
+
       checkboxSelected(index, state){
         console.log("Checkbox state changed. Checked store:", index, "Checked:", state);
         this.isChecked.push(index);
         console.log(this.isChecked);
       }
+
     }
   }
   </script>

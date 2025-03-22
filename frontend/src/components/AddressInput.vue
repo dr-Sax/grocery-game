@@ -1,9 +1,9 @@
 <template>
     <!-- input address in HTML text box input-->
       <label for="address">Address:</label>
-      <input type="text" id="address" name="address" placeholder="Type your address..." @keyup.enter="emitData">
+      <input type="text" id="address" name="address" placeholder="Type your address..." @keyup.enter="submitAddress">
       <br>
-      <button style= "color:white;background-color: #5A2E47" @click="emitData">Submit</button>
+      <button style= "color:white;background-color: #5A2E47" @click="submitAddress">Submit</button>
       <p class="backend-address">{{ backendAddress }}</p>
   </template>
 
@@ -12,18 +12,20 @@ import axios from 'axios';
 
 export default {
     name: 'AddressInput',
-    emits: ['lat_lng','coordinates-updated','store_list'],
+    emits: ['lat_lng_add', 'store_list_add'],
 
     mounted(){
       this.fetchAddress();
     },
-    data(){
-      return{
+
+    data() {
+      return {
         backendAddress: ''
       }
     },
 
     methods: {
+
       async fetchAddress(){
         this.loading = true;
         this.error = null;
@@ -52,11 +54,11 @@ export default {
             this.backendAddress = response.data.address;
             this.storeList = response.data.stores;
             console.log(this.backendAddress["lat"]);
-            this.$emit('lat_lng', {
+            this.$emit('lat_lng_add', {
               latitude: this.backendAddress["lat"],
               longitude: this.backendAddress["lng"],
             })
-            this.$emit('store_list', {
+            this.$emit('store_list_add', {
               stores: this.storeList,
             })
           }
@@ -66,14 +68,11 @@ export default {
         }
       },
 
-      emitData() {
-        // existing update map code
-        this.$emit('coordinates-updated', {
-          address: document.getElementById("address").value
-        });
+      submitAddress() {
         // testing backend update address
         this.updateAddress(document.getElementById("address").value)
       }
+
     }
 }
 </script>

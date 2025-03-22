@@ -26,40 +26,40 @@
   
   export default defineComponent({
     name: 'StoreMap',
-    emits: ['list_of_names'],
+    emits: ['create_checklist_map'],
     components: { GoogleMap, CustomMarker },
-    props: ['megan_latitude', 'megan_longitude', 'list_of_stores'],
+    props: ['latitude_map', 'longitude_map', 'store_list_map'],
 
     setup(props, {emit}) {
       const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
       const center = computed(
         () => (
           { 
-            lat: Number(props.megan_latitude), 
-            lng: Number(props.megan_longitude),
+            lat: Number(props.latitude_map), 
+            lng: Number(props.longitude_map),
           }
         )
       )
       const markers = ref([])
 
       // Make center reactive to prop changes
-      watch(() => props.megan_latitude, (newLat) => {
+      watch(() => props.latitude_map, (newLat) => {
       center.value.lat = newLat
       })
 
-      watch(() => props.megan_longitude, (newLng) => {
+      watch(() => props.longitude_map, (newLng) => {
       console.log(center.value);
       center.value.lng = newLng;
       })
 
-      watch(() => props.list_of_stores, (newStores) => {
-        let store_list = props.list_of_stores.results;
-        let name_list = [];
+      watch(() => props.store_list_map, (newStores) => {
+        let _store_list = props.store_list_map.results;
+        let store_list_fmt_map = [];
 
-        for (let i = 0; i < store_list.length; i++){
+        for (let i = 0; i < _store_list.length; i++){
           //formatting for store markers on map
-          let lat= store_list[i].geometry.location.lat;
-          let lng= store_list[i].geometry.location.lng;
+          let lat= _store_list[i].geometry.location.lat;
+          let lng= _store_list[i].geometry.location.lng;
           markers.value.push(
             {
               "marker_id": i,
@@ -67,21 +67,22 @@
             })
           
           // formatting for checklist items:
-          let adr = props.list_of_stores.results[i].formatted_address
-          let str_name = props.list_of_stores.results[i].name
+          let adr = props.store_list_map.results[i].formatted_address
+          let str_name = props.store_list_map.results[i].name
           let idx = i;
           let str_fmt = {"marker_id": idx, "name": str_name, "address": adr};
-          name_list.push(str_fmt);
+          store_list_fmt_map.push(str_fmt);
+    
         // end of loop  
         }
         //watch for if a checkbox is selected and change marker if it is
-        watch(() => name_list.marker_id, (newLng) => {
+        watch(() => store_list_fmt_map.marker_id, (newLng) => {
           console.log(center.value);
           center.value.lng = newLng;
       })
 
 
-        emit('list_of_names', name_list);
+        emit('create_checklist_map', store_list_fmt_map);
       })
       
 

@@ -14,10 +14,12 @@
           <ul style="list-style-type: none">
             <li v-for="(item, index) in nameList" :key="index">
               <label>
-                <input type="checkbox" :value="item.id" v-model="selectedItems">
+                <input type="checkbox" :value="item.marker_id" v-model="item.isChecked" @change="checkboxSelected(item.marker_id, item.isChecked)">
                   <strong>{{ item.name }}</strong>
                   <br>
                   <em>{{ item.address }}</em>
+                  <br>
+                  {{ item.isChecked }}
               </label>
             </li>
           </ul>
@@ -31,6 +33,7 @@
               :megan_longitude="newLongitude"
               :list_of_stores="newStores"
               @list_of_names="createNameList"
+              :green_marker_stores="isChecked"
             />
           </div>
         </div>
@@ -40,6 +43,7 @@
 
   <script>
   //import children from component folder
+  import { pushScopeId } from 'vue';
   import AddressInput from './components/AddressInput.vue';
   import StoreMap from './components/StoreMap.vue'
 
@@ -55,6 +59,7 @@
         newLongitude: -82.99,
         newStores: null,
         nameList: [],
+        isChecked: [],
       }
     },
     methods: {
@@ -72,6 +77,11 @@
       createNameList(data) {
         console.log("hello")
         this.nameList = data;
+      },
+      checkboxSelected(index, state){
+        console.log("Checkbox state changed. Checked store:", index, "Checked:", state);
+        this.isChecked.push(index);
+        console.log(this.isChecked);
       }
     }
   }

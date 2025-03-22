@@ -57,11 +57,12 @@
         let name_list = [];
 
         for (let i = 0; i < store_list.length; i++){
+          //formatting for store markers on map
           let lat= store_list[i].geometry.location.lat;
           let lng= store_list[i].geometry.location.lng;
           markers.value.push(
             {
-              "id": i,
+              "marker_id": i,
               "position": {"lat": lat, "lng": lng}
             })
           
@@ -69,10 +70,16 @@
           let adr = props.list_of_stores.results[i].formatted_address
           let str_name = props.list_of_stores.results[i].name
           let idx = i;
-          let str_fmt = {"id": idx, "name": str_name, "address": adr};
+          let str_fmt = {"marker_id": idx, "name": str_name, "address": adr};
           name_list.push(str_fmt);
         // end of loop  
         }
+        //watch for if a checkbox is selected and change marker if it is
+        watch(() => name_list.marker_id, (newLng) => {
+          console.log(center.value);
+          center.value.lng = newLng;
+      })
+
 
         emit('list_of_names', name_list);
       })

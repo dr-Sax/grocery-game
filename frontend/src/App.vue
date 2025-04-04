@@ -31,6 +31,7 @@
               :latitude_map = "latitude"
               :longitude_map = "longitude"
               :store_list_map = "store_list"
+              :name_list_map = "nameList"
               @create_checklist_map = "createChecklist"
             />
           </div>
@@ -82,8 +83,7 @@
 
       checkboxSelected(index, state){
         console.log("Checkbox state changed. Checked store:", index, "Checked:", state);
-        this.isChecked.push(index);
-        console.log(this.isChecked);
+        console.log(this.nameList);
       }
 
     }

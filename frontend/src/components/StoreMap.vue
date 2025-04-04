@@ -28,7 +28,7 @@
     name: 'StoreMap',
     emits: ['create_checklist_map'],
     components: { GoogleMap, CustomMarker },
-    props: ['latitude_map', 'longitude_map', 'store_list_map'],
+    props: ['latitude_map', 'longitude_map', 'store_list_map', 'name_list_map'],
 
     setup(props, {emit}) {
       const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
@@ -52,6 +52,14 @@
       center.value.lng = newLng;
       })
 
+      //watch for if a checkbox is selected and change marker if it is
+      watch(
+        () => props.name_list_map, (newLng) => {
+          console.log('tester checkbox:', newLng);
+        },
+        { deep: true }
+      )
+
       watch(() => props.store_list_map, (newStores) => {
         let _store_list = props.store_list_map.results;
         let store_list_fmt_map = [];
@@ -70,21 +78,13 @@
           let adr = props.store_list_map.results[i].formatted_address
           let str_name = props.store_list_map.results[i].name
           let idx = i;
-          let str_fmt = {"marker_id": idx, "name": str_name, "address": adr};
+          let str_fmt = {"marker_id": idx, "name": str_name, "address": adr, "isChecked": false};
           store_list_fmt_map.push(str_fmt);
     
         // end of loop  
         }
-        //watch for if a checkbox is selected and change marker if it is
-        watch(() => store_list_fmt_map.marker_id, (newLng) => {
-          console.log(center.value);
-          center.value.lng = newLng;
-      })
-
-
         emit('create_checklist_map', store_list_fmt_map);
-      })
-      
+      })      
 
       //this can be used for icon color changing and selection
       const selectStore = (marker) => {
